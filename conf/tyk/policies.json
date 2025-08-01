@@ -1,0 +1,22 @@
+{
+  "mypolicy": {
+    "org_id": "1",
+    "rate": 40,
+    "per": 1,
+    "quota_max": -1,
+    "key_expires_in": -1,
+    "access_rights": {
+      "myapp": {
+        "api_id": "myapp",
+        "versions": [
+          "v1"
+        ]
+      }
+    },
+    "partitions": {
+      "acl": true,
+      "quota": true,
+      "rate_limit": true
+    }
+  }
+}
