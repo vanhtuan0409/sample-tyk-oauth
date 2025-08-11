@@ -4,7 +4,7 @@ services:
     image: redis:6-alpine
 
   tyk:
-    image: 988983267146.dkr.ecr.ap-east-1.amazonaws.com/infra/tyk-gateway:v5.7.1.2
+    image: tykio/tyk-gateway:v5.9.0
     network_mode: host
     environment:
       TYK_GW_SECRET: myabcsecret
