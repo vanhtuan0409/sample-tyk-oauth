@@ -1,0 +1,71 @@
+{
+ "components": {},
+ "info": {
+  "title": "My app",
+  "version": "v1"
+ },
+ "openapi": "3.0.6",
+ "paths": {},
+ "x-tyk-api-gateway": {
+  "info": {
+   "id": "myapp",
+   "orgId": "1",
+   "name": "My app",
+   "state": {
+    "active": true
+   },
+   "versioning": {
+    "enabled": true,
+    "name": "v1",
+    "default": "self",
+    "location": "url",
+    "key": "version",
+    "versions": []
+   }
+  },
+  "upstream": {
+   "url": "http://127.0.0.1:5050",
+   "preserveHostHeader": {
+    "enabled": true
+   }
+  },
+  "server": {
+   "listenPath": {
+    "value": "/api"
+   },
+   "authentication": {
+    "enabled": true,
+    "stripAuthorizationData": true
+   }
+  },
+  "middleware": {
+   "global": {
+    "cors": {
+     "enabled": true,
+     "allowedHeaders": [
+      "Authorization",
+      "Origin",
+      "Accept",
+      "Content-Type",
+      "X-Requested-With"
+     ],
+     "allowedOrigins": [
+      "*"
+     ],
+     "allowedMethods": [
+      "GET",
+      "POST",
+      "HEAD",
+      "OPTIONS"
+     ]
+    },
+    "contextVariables": {
+     "enabled": true
+    },
+    "trafficLogs": {
+     "enabled": true
+    }
+   }
+  }
+ }
+}

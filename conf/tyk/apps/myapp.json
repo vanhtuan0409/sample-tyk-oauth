@@ -82,7 +82,8 @@
   },
   "base_identity_provided_by": "",
   "definition": {
-    "location": "url"
+    "location": "url",
+    "key": "version"
   },
   "version_data": {
     "not_versioned": false,
