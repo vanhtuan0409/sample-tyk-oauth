@@ -19,7 +19,10 @@ func createTykAPIKey() error {
 
 	body := []byte(`{
 		"org_id": "1",
-		"apply_policies": ["mypolicy"]
+		"apply_policies": ["mypolicy"],
+		"meta_data": {
+			"userid": "user_from_key"
+		}
 	}`)
 
 	req, err := http.NewRequest(http.MethodPost, url, bytes.NewBuffer(body))

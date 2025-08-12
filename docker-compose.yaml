@@ -11,5 +11,5 @@ services:
     volumes:
     - ./conf/tyk/tyk.json:/opt/tyk-gateway/tyk.conf
     - ./conf/tyk/policies.json:/configs/policies/policies.json
-    # - ./conf/tyk/apps/:/configs/apps/
-    - ./conf/tyk/newapps/:/configs/apps/
+    - ./conf/tyk/apps/:/configs/apps/
+    # - ./conf/tyk/newapps/:/configs/apps/

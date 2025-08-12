@@ -1,21 +1,30 @@
 {
-  "name": "My app",
-  "slug": "myapp",
+  "name": "My app Oauth2",
+  "slug": "myapp_oauth",
   "listen_port": 0,
   "protocol": "",
   "enable_proxy_protocol": false,
-  "api_id": "myapp",
+  "api_id": "myapp_oauth",
   "org_id": "1",
   "use_keyless": false,
-  "use_oauth2": false,
+  "use_oauth2": true,
   "use_openid": false,
   "openid_options": {
     "providers": null,
     "segregate_by_client": false
   },
-  "oauth_meta": {},
+  "oauth_meta": {
+    "allowed_access_types": [
+      "authorization_code",
+      "refresh_token"
+    ],
+    "allowed_authorize_types": [
+      "code"
+    ],
+    "auth_login_redirect": "http://localhost:5050/login"
+  },
   "auth_configs": {
-    "authToken": {
+    "oauth": {
       "auth_header_name": "Authorization"
     }
   },
@@ -208,7 +217,7 @@
     "options_passthrough": false,
     "debug": false
   },
-  "domain": "localhost:8080",
+  "domain": "api.gondor-local.io:8080",
   "certificates": null,
   "do_not_track": false,
   "tags": null,
