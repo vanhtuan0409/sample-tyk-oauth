@@ -208,7 +208,7 @@
     "options_passthrough": false,
     "debug": false
   },
-  "domain": "localhost:8080",
+  "domain": "",
   "certificates": null,
   "do_not_track": false,
   "tags": null,

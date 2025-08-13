@@ -8,9 +8,9 @@ import (
 )
 
 const (
+	TykHTTPEndpoint  = "http://localhost:8080"
 	TykAdminEndpoint = "http://localhost:8081"
 	TykAdminSecret   = "myabcsecret"
-	TykHTTPEndpoint  = "http://api.gondor-local.io:8080"
 )
 
 type OauthApp struct {
@@ -36,7 +36,7 @@ var SampleOauthApp = &OauthApp{
 	},
 	Description: "my sample oauth app",
 
-	ListenPath: "/api",
+	ListenPath: "/oauth",
 }
 
 func (app OauthApp) GetOauthUrl(p string) string {

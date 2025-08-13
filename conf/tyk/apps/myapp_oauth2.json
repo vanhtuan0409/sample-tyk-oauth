@@ -126,8 +126,8 @@
   },
   "proxy": {
     "preserve_host_header": true,
-    "listen_path": "/api",
-    "target_url": "http://127.0.0.1:5050",
+    "listen_path": "/oauth",
+    "target_url": "http://127.0.0.1:9999",
     "disable_strip_slash": false,
     "strip_listen_path": false,
     "enable_load_balancing": false,
@@ -217,7 +217,7 @@
     "options_passthrough": false,
     "debug": false
   },
-  "domain": "api.gondor-local.io:8080",
+  "domain": "",
   "certificates": null,
   "do_not_track": false,
   "tags": null,
