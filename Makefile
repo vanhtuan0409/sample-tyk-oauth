@@ -20,13 +20,6 @@ import-oas:
 list-oauth-app:
 	curl -s -H "x-tyk-authorization: myabcsecret" localhost:8081/tyk/oauth/clients/myapp_oauth | jq
 
-create-oauth-app:
-	curl -s -X POST \
-		-H "x-tyk-authorization: myabcsecret" \
-		-H "content-type: application/json" \
-		-d "@./requests/create_oauth_app.json" \
-		localhost:8081/tyk/oauth/clients/create | jq
-
 list-oauth-token:
 	curl -s -H "x-tyk-authorization: myabcsecret" localhost:8081/tyk/oauth/clients/myapp_oauth/sample_oauth_app/tokens | jq
 

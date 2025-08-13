@@ -5,10 +5,15 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"tykloadtest"
 )
 
 func main() {
-	log.Printf("oauth start url: %s", getOauthStartURL())
+	if err := createOauthApp(); err != nil {
+		log.Fatalf("unable to create oauth app: %+v", err)
+	}
+
+	log.Printf("oauth start url: %s", tykloadtest.SampleOauthApp.LoginURL("mystate", "myscope"))
 	http.HandleFunc("/login", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method == http.MethodGet {
 			renderLoginHandler(w, r)

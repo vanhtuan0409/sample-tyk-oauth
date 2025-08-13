@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -53,7 +54,7 @@ func loginHandler(w http.ResponseWriter, r *http.Request) {
 	values.Set("state", r.FormValue("state"))
 	values.Set("scope", r.FormValue("scope"))
 
-	req, err := http.NewRequest(http.MethodPost, tykloadtest.GetTykURL("/tyk/oauth/authorize-client"), strings.NewReader(values.Encode()))
+	req, err := http.NewRequest(http.MethodPost, tykloadtest.SampleOauthApp.GetOauthUrl("/tyk/oauth/authorize-client"), strings.NewReader(values.Encode()))
 	if err != nil {
 		responseError(w, err)
 		return
@@ -96,13 +97,13 @@ func redirectHandler(w http.ResponseWriter, r *http.Request) {
 	values.Set("grant_type", "authorization_code")
 	values.Set("code", code)
 
-	req, err := http.NewRequest(http.MethodPost, tykloadtest.GetTykURL("/oauth/token"), strings.NewReader(values.Encode()))
+	req, err := http.NewRequest(http.MethodPost, tykloadtest.SampleOauthApp.GetOauthUrl("/oauth/token"), strings.NewReader(values.Encode()))
 	if err != nil {
 		responseError(w, err)
 		return
 	}
 	req.Header.Set("content-type", "application/x-www-form-urlencoded")
-	req.SetBasicAuth(tykloadtest.ClientID, tykloadtest.ClientSecret)
+	req.SetBasicAuth(tykloadtest.SampleOauthApp.ClientID, tykloadtest.SampleOauthApp.Secret)
 
 	resp, err := http.DefaultClient.Do(req)
 	if err != nil {
@@ -115,20 +116,29 @@ func redirectHandler(w http.ResponseWriter, r *http.Request) {
 	io.Copy(w, resp.Body)
 }
 
-func getOauthStartURL() string {
-	oauthURL, err := url.Parse(tykloadtest.GetTykURL("/oauth/authorize"))
-	if err != nil {
-		return ""
+func createOauthApp() error {
+	createUrl := fmt.Sprintf("%s/tyk/oauth/clients/create", tykloadtest.TykAdminEndpoint)
+
+	var body bytes.Buffer
+	if err := json.NewEncoder(&body).Encode(tykloadtest.SampleOauthApp); err != nil {
+		return err
 	}
 
-	values := url.Values{}
-	values.Set("response_type", "code")
-	values.Set("client_id", tykloadtest.ClientID)
-	values.Set("redirect_uri", tykloadtest.RedirectURI)
-	values.Set("state", "mystate")
-	values.Set("scope", "myscope")
-	oauthURL.RawQuery = values.Encode()
-	return oauthURL.String()
+	req, err := http.NewRequest(http.MethodPost, createUrl, &body)
+	if err != nil {
+		return err
+	}
+	req.Header.Set("content-type", "application/json")
+	req.Header.Set("x-tyk-authorization", tykloadtest.TykAdminSecret)
+
+	resp, err := http.DefaultClient.Do(req)
+	if err != nil {
+		return err
+	}
+	defer resp.Body.Close()
+
+	io.Copy(os.Stdout, resp.Body)
+	return nil
 }
 
 func responseError(w http.ResponseWriter, err error) {

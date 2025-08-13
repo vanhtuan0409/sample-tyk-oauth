@@ -22,13 +22,13 @@ func main() {
 	values.Set("grant_type", "refresh_token")
 	values.Set("refresh_token", rToken)
 
-	req, err := http.NewRequest(http.MethodPost, tykloadtest.GetTykURL("/oauth/token"), strings.NewReader(values.Encode()))
+	req, err := http.NewRequest(http.MethodPost, tykloadtest.SampleOauthApp.GetOauthUrl("/oauth/token"), strings.NewReader(values.Encode()))
 	if err != nil {
 		log.Fatalf("unable to request refresh: +%v", err)
 		return
 	}
 	req.Header.Set("content-type", "application/x-www-form-urlencoded")
-	req.SetBasicAuth(tykloadtest.ClientID, tykloadtest.ClientSecret)
+	req.SetBasicAuth(tykloadtest.SampleOauthApp.ClientID, tykloadtest.SampleOauthApp.Secret)
 
 	resp, err := http.DefaultClient.Do(req)
 	if err != nil {
