@@ -3,8 +3,10 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"io"
 	"log"
 	"net/http"
+	"os"
 	"tykloadtest"
 )
 
@@ -22,6 +24,14 @@ func main() {
 		}
 	})
 	http.HandleFunc("/redirect", redirectHandler)
+
+	http.HandleFunc("/notify", func(w http.ResponseWriter, r *http.Request) {
+		defer r.Body.Close()
+		io.Copy(os.Stdout, r.Body)
+		fmt.Println("")
+
+		w.WriteHeader(http.StatusOK)
+	})
 
 	// This handler will be called for all requests not matched by more specific patterns
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {

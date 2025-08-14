@@ -58,7 +58,7 @@
   "jwt_scope_claim_name": "",
   "notifications": {
     "shared_secret": "",
-    "oauth_on_keychange_url": ""
+    "oauth_on_keychange_url": "http://127.0.0.1:5050/notify"
   },
   "enable_signature_checking": false,
   "hmac_allowed_clock_skew": 0,
