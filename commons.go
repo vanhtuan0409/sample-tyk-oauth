@@ -31,9 +31,7 @@ var SampleOauthApp = &OauthApp{
 	Secret:      "sample_app_secret",
 	RedirectURI: "http://localhost:5050/redirect",
 	PolicyID:    "mypolicy",
-	Metadata: map[string]any{
-		"userid": "user_from_oauth",
-	},
+	Metadata:    map[string]any{},
 	Description: "my sample oauth app",
 
 	ListenPath: "/oauth",

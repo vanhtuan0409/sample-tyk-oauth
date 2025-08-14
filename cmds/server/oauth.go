@@ -53,7 +53,7 @@ func loginHandler(w http.ResponseWriter, r *http.Request) {
 	values.Set("redirect_uri", r.FormValue("redirect_uri"))
 	values.Set("state", r.FormValue("state"))
 	values.Set("scope", r.FormValue("scope"))
-	values.Set("meta_data", `{"meta_data": {"foo": "bar"}}`)
+	values.Set("key_rules", `{"meta_data": {"userid": "user_from_xxx"}, "apply_policies": ["mypolicy"]}`)
 
 	req, err := http.NewRequest(http.MethodPost, tykloadtest.SampleOauthApp.GetOauthUrl("/tyk/oauth/authorize-client"), strings.NewReader(values.Encode()))
 	if err != nil {
